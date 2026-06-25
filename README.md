@@ -1,117 +1,193 @@
-# Human Pose & Gesture Recognition – Safety System with Real-Time Alert System
-### Real-Time Tracking with MediaPipe Holistic, LSTM & Location-Based Alerts
+# Women Safety System
 
-[![Python version](https://img.shields.io/badge/python-3.x-blue)]()
+### AI-Based Emergency Gesture Detection and Live Safety Notification Framework
+
+[![Python](https://img.shields.io/badge/Python-3.x-blue)]()
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)]()
-[![MediaPipe](https://img.shields.io/badge/MediaPipe-Holistic-teal)]()
-[![License](https://img.shields.io/badge/license-MIT-green)]()
+[![MediaPipe](https://img.shields.io/badge/MediaPipe-Holistic-green)]()
+[![Status](https://img.shields.io/badge/Status-Active-success)]()
 
 ---
 
-### Project Overview  
-This project implements a real-time human pose and gesture recognition system designed for safety and emergency alerting, especially for women's safety.  
-It uses MediaPipe Holistic for body, face, and hand landmark detection, and a TensorFlow LSTM model for gesture classification.  
-When a distress or help gesture is detected, the system automatically sends an SMS alert containing the user's live location (via Geocoder) using Twilio API.
+## Overview
 
-Watch the demo video on YouTube: https://youtu.be/cWUQyDXmYO8?si=JcIuF2p5LZFx-JMq
+**Sentinel Gesture** is an intelligent safety monitoring system that performs **real-time body pose and hand gesture analysis** to identify emergency or distress signals from a live camera feed. The system is designed as a rapid-response safety solution, where suspicious or predefined emergency gestures can activate an automated alert workflow.
 
----
+The project combines **MediaPipe Holistic** for extracting facial, pose, and hand landmarks with a **TensorFlow LSTM-based sequence model** for temporal gesture classification. Once a critical gesture is recognized, the system triggers an alert mechanism that retrieves the user’s approximate location and forwards it to a saved emergency contact using SMS.
 
-### Features
-- Real-time gesture recognition using OpenCV and MediaPipe  
-- Deep learning-based gesture classification (LSTM model)  
-- Automated safety alerts with live location tracking (Geocoder)  
-- SMS notifications via Twilio API  
-- Modular structure for collection → preprocessing → model training → real-time detection  
-- Visual feedback overlays of keypoints and gestures  
+This solution is particularly useful for **personal safety applications**, smart surveillance prototypes, and AI-assisted emergency response systems.
+
+**Demo Video:** https://youtu.be/cWUQyDXmYO8?si=JcIuF2p5LZFx-JMq
 
 ---
 
-### Technologies Used  
-| Category | Tools / Libraries |
-|-----------|------------------|
-| Programming Language | Python |
-| Computer Vision | OpenCV |
-| Landmark Detection | MediaPipe (Holistic) |
-| Deep Learning | TensorFlow / Keras |
-| Location Tracking | Geocoder |
-| Communication | Twilio API |
-| Data Handling | NumPy, Pandas |
-| Visualization | Matplotlib |
+## Core Functionalities
+
+* **Live Gesture Monitoring** through webcam-based video capture
+* **Pose + Hand Landmark Extraction** using MediaPipe Holistic
+* **Sequence-Based Gesture Recognition** using an LSTM deep learning model
+* **Emergency Alert Triggering** when a danger/help gesture is detected
+* **Location-Aware SMS Notification** using Geocoder and Twilio
+* **Visual Display Layer** for showing detected landmarks and predicted actions
+* **Structured ML Workflow** covering data collection, preprocessing, training, and deployment testing
 
 ---
 
-### Project Structure  
+## Tech Stack
+
+| Domain                     | Tools / Frameworks |
+| -------------------------- | ------------------ |
+| Language                   | Python             |
+| Video Processing           | OpenCV             |
+| Landmark Detection         | MediaPipe Holistic |
+| Deep Learning              | TensorFlow / Keras |
+| Alert Messaging            | Twilio API         |
+| Location Retrieval         | Geocoder           |
+| Numerical Processing       | NumPy, Pandas      |
+| Evaluation / Visualization | Matplotlib         |
+
+---
+
+## System Pipeline
+
+The project follows a sequential AI pipeline:
+
+1. **Capture human movement data** using webcam input
+2. **Extract body, face, and hand keypoints** frame-by-frame
+3. **Create temporal gesture sequences** for model learning
+4. **Train an LSTM model** on action/gesture patterns
+5. **Run real-time inference** on incoming video frames
+6. **Trigger emergency communication** when a distress gesture is classified
+
+---
+
+## Project Directory
+
+```bash
+/Sentinel-GestureGuard
+│
+├── gesture_safety_notebook.ipynb      # Main notebook for training + live testing
+├── /gesture_dataset                   # Stored keypoint sequence data
+├── /trained_models                    # Saved model files / weights
+├── /core_modules
+│   ├── dataset_builder.py             # Gesture sample collection
+│   ├── sequence_trainer.py            # LSTM training and evaluation
+│   ├── live_monitor.py                # Real-time gesture prediction
+│   └── emergency_notifier.py          # SMS + location alert logic
+└── README.md
 ```
-/project-root
-│  
-├── trishul.ipynb             # Jupyter notebook with model training & real-time testing  
-├── /data                     # Collected keypoint datasets  
-├── /models                   # Trained LSTM model weights  
-├── /scripts  
-│   ├── collect_data.py  
-│   ├── train_model.py  
-│   ├── real_time_predict.py  
-│   └── send_alert.py         # Contains Twilio + Geocoder alert logic  
-└── README.md                 # This file  
-```
 
 ---
 
-### How to Run  
-#### Step 1: Install Dependencies  
+## Installation
+
+Install the required dependencies before running the project:
+
 ```bash
 pip install opencv-python mediapipe tensorflow matplotlib numpy pandas scikit-learn geocoder twilio
 ```
 
-#### Step 2: Run the Notebook  
-Execute all sections in trishul.ipynb sequentially:
-1. Data Collection via webcam  
-2. Keypoint Extraction & Preprocessing  
-3. LSTM Model Training & Evaluation  
-4. Real-Time Prediction & Visualization  
-5. (Optional) Trigger SMS Alerts with Live Location
+---
+
+## Execution Guide
+
+### 1. Launch the Notebook
+
+Run the notebook file step-by-step:
+
+```bash
+gesture_safety_notebook.ipynb
+```
+
+### 2. Workflow Execution
+
+The notebook generally follows these stages:
+
+* **Stage 1:** Gesture data acquisition from webcam
+* **Stage 2:** Keypoint extraction and preprocessing
+* **Stage 3:** LSTM model creation and training
+* **Stage 4:** Performance testing and real-time prediction
+* **Stage 5:** Emergency alert activation on target gesture detection
 
 ---
 
-### Alert System with Geocoder + Twilio  
+## Emergency Alert Module
 
-When a "HELP" gesture is detected, the system automatically:
-1. Uses Geocoder to get the latitude, longitude, and address  
-2. Formats an alert message with these details  
-3. Sends it to the registered contact using Twilio SMS API
+The alert subsystem is activated whenever the model predicts a predefined emergency gesture such as **HELP** or any configured distress signal.
 
+### Alert Workflow
 
+1. Detect the emergency gesture from the live video stream
+2. Fetch approximate geographic details using **Geocoder**
+3. Prepare an alert message containing location coordinates/address
+4. Send the notification to a registered contact using **Twilio SMS API**
 
-How It Works:
-- The model identifies gestures in real-time from webcam input.  
-- When "HELP" or similar is recognized, it triggers send_safety_alert().  
-- Geocoder fetches the user's approximate current location using IP.  
-- Twilio sends the SMS to the registered emergency contact instantly.  
+### Alert Message Includes
 
----
-
-### Model Performance  
-- High gesture recognition accuracy (evaluated via confusion matrix & accuracy)  
-- Robust in various lighting conditions  
-- Real-time inference with low latency using MediaPipe & TensorFlow  
+* Emergency trigger status
+* Latitude and longitude
+* Approximate detected address/location
+* Safety warning message for the receiver
 
 ---
 
-### Demo Preview  
-Watch the demo video: https://youtu.be/cWUQyDXmYO8?si=JcIuF2p5LZFx-JMq  
-Shows real-time gesture detection, pose visualization, and SMS alert functionality.  
+## Working Principle
 
-(You can add a GIF or screenshot from your demo here.)
+The overall working logic of the system is:
+
+* A webcam continuously captures the user’s movements.
+* MediaPipe Holistic extracts pose, hand, and facial landmarks from each frame.
+* These keypoints are arranged into sequential data samples.
+* The trained LSTM model classifies whether the sequence matches a learned gesture pattern.
+* If the detected action corresponds to an emergency signal, the alert function is called automatically.
+* The system then retrieves location details and sends an SMS notification to the emergency contact.
 
 ---
 
-### Future Enhancements  
-- Integrate GPS for precise mobile-based tracking  
-- Add voice or sound-triggered alerts for emergencies  
-- Support multi-person detection and classification  
-- Deploy as a python
-- Extend to IoT devices / wearable sensors  
+## Performance Highlights
 
+* Supports **real-time gesture inference**
+* Efficient landmark extraction with **low-latency processing**
+* Temporal sequence learning improves action recognition quality
+* Can be adapted for **personal safety**, **smart monitoring**, or **gesture-controlled alert systems**
 
+---
 
+## Demo
+
+**YouTube Demonstration:**
+https://youtu.be/cWUQyDXmYO8?si=JcIuF2p5LZFx-JMq
+
+The demo includes:
+
+* Live pose and gesture recognition
+* Landmark visualization
+* Distress gesture prediction
+* SMS-based emergency notification workflow
+
+---
+
+## Possible Enhancements
+
+* Integrate **GPS-based location sharing** for more precise tracking
+* Add **voice-triggered emergency activation**
+* Extend support for **multiple users/person detection**
+* Convert the prototype into a **desktop or mobile application**
+* Connect with **IoT wearables** or safety devices for hybrid monitoring
+* Add a **cloud dashboard** for alert history and event logs
+
+---
+
+## Application Areas
+
+* Women’s personal safety systems
+* Smart surveillance and security prototypes
+* AI-based emergency response systems
+* Gesture-enabled alert solutions
+* Human activity monitoring applications
+
+---
+
+## Conclusion
+
+Sentinel GestureGuard demonstrates how **computer vision**, **sequence modeling**, and **real-time alerting** can be combined into a practical emergency-response prototype. By using gesture recognition as an input trigger and automating communication with location sharing, the project presents a scalable foundation for safety-oriented intelligent systems.
